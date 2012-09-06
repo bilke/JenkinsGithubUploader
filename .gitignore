@@ -1,0 +1,4 @@
+.bundle
+.rvmrc
+tmp/
+vendor/
