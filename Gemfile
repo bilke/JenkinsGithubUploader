@@ -1,7 +1,11 @@
 source "http://rubygems.org"
 
 group :deployment do
-	gem "heroku"
+	gem "thin"
 	gem "sinatra", :require => "sinatra/base"
 	gem "json"
 end
+
+#group :development do
+#	gem "rerun"
+#end
