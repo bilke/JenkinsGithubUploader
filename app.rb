@@ -22,10 +22,10 @@ post '/upload/?' do
 		local_filename = /.*\/(.*)/.match(ENV["UPLOAD_FILE_NAMES"])[1]
 		uri = URI.parse("#{json['build']['full_url']}artifact/#{ENV['UPLOAD_FILE_NAMES']}")
 		http = Net::HTTP.new(uri.host, uri.port)
-		http.use_ssl = true
+		http.use_ssl = true if uri.scheme == 'https'
 		http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 		req = Net::HTTP::Get.new(uri.request_uri)
-		req.basic_auth ENV['JENKINS_USER'], ENV['JENKINS_PW']
+		req.basic_auth ENV['JENKINS_USER'], ENV['JENKINS_PW'] if ENV['JENKINS_PW'] != nil
 		response = http.request(req)
 		open(local_filename, "wb") do |file|
 			file.write(response.body)
